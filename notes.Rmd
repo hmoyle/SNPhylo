@@ -1,0 +1,26 @@
+---
+title: "Notes"
+output: html_notebook
+---
+
+**Setting up SNPhylo**
+I had quite a bit of trouble with this. Generally, I followed the doc "install_on_linux.rst" Ubuntu section but had to modify some spots:
+  - I had to create a downgraded python environment, as SNPhylo uses Python 3.8.
+  - Within that Python 3.8 environment, I downloaded Phylip using bioconda(I'm sure I had further troubles than this, but alas I cannot remember them).
+  - I use wget instead of curl to get around admin permissions, and a lot of the links in the guide are out of date so I sourced most of the necessary programs from Google.
+  - Use git clone to get SNPhylo from GitHub.
+  - You need all four of the R packages. Some of them were out of date and I had to get the source code, others like SNPRelate only worked with the most recent version of R (which I don't have on megabox). Do with that what you will.
+  - Python scripts are written for verision 2, not version 3. You need to use 2to3 to update them so that they will run. 
+
+
+**Issues:**
+
+SNPhylo was stopped at line 291 due to an issue with the formatting of the phylip.txt file.
+My fix was to alter the first line by hand to read (for example):
+95    5
+instead of:
+(95, 5). 
+
+I will be examining 'convert_fasta_to_phylip.py' to fix the issue. 
+
+The rest of the necessary code to create the tree was run by hand, but code was edited in 'determine_bs_tree.R' as the format is set to phylip (which defaults to sequential) but we are working with interleaved. 
